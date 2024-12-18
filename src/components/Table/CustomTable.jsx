@@ -39,16 +39,17 @@ export const CustomTable = ({data})=>{
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {data.map((d)=>(
-                        <TableCell key={d.id}>
-                            <Typography>
-                                {'relleno'}
-                            </Typography>
-                        </TableCell>
-                    ))}
+                    <TableRow>
+                        {data.map((d)=>(
+                            <TableCell key={d.id}>
+                                <Typography>
+                                    {'relleno'}
+                                </Typography>
+                            </TableCell>
+                        ))}
+                    </TableRow>
                 </TableBody>
             </Table>
-
         </TableContainer>
     )
 }

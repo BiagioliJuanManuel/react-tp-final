@@ -9,8 +9,9 @@ import GroupIcon from '@mui/icons-material/Group';
 import { useState } from 'react';
 import { ListMenu } from '../ListMenu/ListMenu';
 import { HeaderBar } from '../HeaderBar/HeaderBar';
+import { NavLink, Outlet } from 'react-router';
 
-export default function NavBar() {
+export default function NavBar({children}) {
 
   const [open, setOpen] = useState(false);
 
@@ -22,25 +23,25 @@ export default function NavBar() {
     {
       id: 1,
       title: 'Inicio',
-      path: '',
+      path: '/',
       icon: <HomeIcon/>
     },
     {
       id: 2,
       title: 'Eventos',
-      path: '',
+      path: '/eventos',
       icon: <EventIcon/>
     },
     {
       id: 3,
       title: 'Tareas',
-      path: '',
+      path: '/tareas',
       icon: <AssignmentIcon/>
     },
     {
       id: 4,
       title: 'Usuarios',
-      path: '',
+      path: '/usuarios',
       icon: <GroupIcon/>
     },
   ]
@@ -49,7 +50,13 @@ export default function NavBar() {
     <Box sx={{ width: 250 }} role="presentation" onClick={toggleDrawer(false)}>
       <List>
         {menu.map(({id, title, path, icon}) => (
-            <ListMenu  key={id} title={title} path={path} icon={icon} />
+          <>
+          <NavLink key={id} to={path} style={{textDecoration:"none"}}>
+            <ListMenu  title={title} path={path} icon={icon} />
+          </NavLink>
+          
+          </>
+
         ))}
       </List>
       <Divider />
@@ -76,6 +83,8 @@ export default function NavBar() {
     <Drawer open={open} onClose={toggleDrawer(false)}>
           {DrawerList}
     </Drawer>
+    {children}
+    <Outlet />
     </Box>  
   </>
   );
