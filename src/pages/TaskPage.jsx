@@ -3,6 +3,7 @@ import { CustomTable } from "../components/Table/CustomTable";
 import useFetch from "../hooks/useFetch";
 import { getTasks } from "../services/TaskService";
 import { formatDate } from "../utils/formatDate";
+import { Buttons } from "../components/Buttons/Buttons";
 
 export const TaskPage = () => {
   const baseURL = import.meta.env.VITE_API_URL;
@@ -11,7 +12,28 @@ export const TaskPage = () => {
 
   const { data, loading } = useFetch(url, getTasks);
 
-//   console.log(data.body);
+  const buttons = [
+    {
+      id: 1,
+      color: "secondary",
+      label: "Agregar",
+    },
+    {
+      id: 2,
+      color: "success",
+      label: "Editar",
+    },
+    {
+      id: 3,
+      color: "error",
+      label: "Eliminar",
+    },
+    {
+      id: 4,
+      color: "primary",
+      label: "Completada",
+    },
+  ];
 
   const fields = [
     {
@@ -75,6 +97,7 @@ export const TaskPage = () => {
         Tareas
       </Typography>
       <CustomTable field={fields} data={tasks} />
+      <Buttons buttons={buttons} />
     </Box>
   );
 };

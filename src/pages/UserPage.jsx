@@ -2,12 +2,36 @@ import { Box, Typography } from "@mui/material";
 import { CustomTable } from "../components/Table/CustomTable";
 import useFetch from "../hooks/useFetch";
 import { getUsers } from "../services/UserService";
+import { Buttons } from "../components/Buttons/Buttons";
 
 export const UserPage = () => {
   const baseURL = import.meta.env.VITE_API_URL;
   const endPoint = import.meta.env.VITE_USER_ENDPOINT;
   const url = baseURL + endPoint;
   const { data, loading } = useFetch(url, getUsers);
+
+  const buttons = [
+    {
+        id: 1,
+        color: 'secondary',
+        label: 'Agregar'
+    },
+    {
+        id: 2,
+        color: 'success',
+        label: 'Editar'
+    },
+    {
+        id: 3,
+        color: 'error',
+        label: 'Eliminar'
+    },
+    {
+        id: 4,
+        color: 'primary',
+        label: 'Buscar Eventos'
+    },
+  ]
 
   const fields = [
     {
@@ -49,6 +73,7 @@ export const UserPage = () => {
         Usuarios
       </Typography>
       <CustomTable field={fields} data={users} />
+      <Buttons buttons={buttons}/>
     </Box>
   );
 };

@@ -1,4 +1,5 @@
 import {
+    Box,
   CircularProgress,
   Table,
   TableBody,
@@ -29,7 +30,8 @@ export const CustomTable = ({ field, data }) => {
   }
 
   return (
-    <TableContainer>
+    <Box sx={{display: "flex", justifyContent: "center"}}>
+    <TableContainer sx={{width: "90%"}}>
       <Table>
         <TableHead>
           <TableRow>
@@ -55,5 +57,6 @@ export const CustomTable = ({ field, data }) => {
         </TableBody>
       </Table>
     </TableContainer>
+    </Box>
   );
 };

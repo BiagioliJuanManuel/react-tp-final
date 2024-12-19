@@ -3,6 +3,7 @@ import { CustomTable } from "../components/Table/CustomTable";
 import useFetch from "../hooks/useFetch";
 import { getEvents } from "../services/EventService";
 import { formatDate } from "../utils/formatDate";
+import { Buttons } from "../components/Buttons/Buttons";
 
 export const EventPage = () => {
   const baseURL = import.meta.env.VITE_API_URL;
@@ -11,7 +12,23 @@ export const EventPage = () => {
 
   const { data, loading } = useFetch(url, getEvents);
 
-//   console.log(data);
+  const buttons = [
+    {
+      id: 1,
+      color: "secondary",
+      label: "Agregar",
+    },
+    {
+      id: 2,
+      color: "success",
+      label: "Editar",
+    },
+    {
+      id: 3,
+      color: "error",
+      label: "Eliminar",
+    },
+  ];
 
   const fields = [
     {
@@ -66,6 +83,7 @@ export const EventPage = () => {
         Eventos
       </Typography>
       <CustomTable field={fields} data={events} />
+      <Buttons buttons={buttons} />
     </Box>
   );
 };
