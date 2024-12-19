@@ -1,55 +1,59 @@
-import { CircularProgress, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from "@mui/material"
-import { useEffect, useState } from "react"
+import {
+  CircularProgress,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Typography,
+} from "@mui/material";
+import { useEffect, useState } from "react";
 
-export const CustomTable = ({data})=>{
+export const CustomTable = ({ field, data }) => {
+  const [loading, setLoading] = useState(true);
 
-    const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      setLoading(false);
+    }, 1000);
+    return () => clearTimeout(timeout);
+  }, []);
 
-    useEffect(()=>{
-        const timeout = setTimeout(()=>{
-            setLoading(false);
-        }, 1000);
-        return ()=> clearTimeout(timeout);
-    }, [])
+  if (loading) {
+    return <CircularProgress />;
+  }
 
-    if(loading){
-        return <CircularProgress />
-    }
+  if (!data || data.length === 0) {
+    return <Typography>No data available</Typography>;
+  }
 
-    if (!data || data.length === 0) {
-        return (
-            <Typography>
-                No data available
-            </Typography>
-        );
-    }
-
-    return(
-        <TableContainer>
-            <Table>
-                <TableHead>
-                    <TableRow>
-                        {data.map((d)=>(
-                            <TableCell key={d.id}>
-                                <Typography sx={{ fontWeight: 'bold' }}>
-                                    {d.title}
-                                </Typography>
-                            </TableCell>
-                        ))}
-                    </TableRow>
-                </TableHead>
-                <TableBody>
-                    <TableRow>
-                        {data.map((d)=>(
-                            <TableCell key={d.id}>
-                                <Typography>
-                                    {'relleno'}
-                                </Typography>
-                            </TableCell>
-                        ))}
-                    </TableRow>
-                </TableBody>
-            </Table>
-        </TableContainer>
-    )
-}
+  return (
+    <TableContainer>
+      <Table>
+        <TableHead>
+          <TableRow>
+            {field.map((field) => (
+              <TableCell key={field.id}>
+                <Typography sx={{ fontWeight: "bold" }}>
+                  {field.title}
+                </Typography>
+              </TableCell>
+            ))}
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {data.map((d) => (
+            <TableRow key={d.id}>
+              {field.map((f) => (
+                <TableCell key={f.id}>
+                  <Typography>{d[f.key] ?? "-"}</Typography>
+                </TableCell>
+              ))}
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+    </TableContainer>
+  );
+};

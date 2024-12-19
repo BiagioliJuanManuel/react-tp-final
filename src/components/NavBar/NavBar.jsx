@@ -50,13 +50,9 @@ export default function NavBar({children}) {
     <Box sx={{ width: 250 }} role="presentation" onClick={toggleDrawer(false)}>
       <List>
         {menu.map(({id, title, path, icon}) => (
-          <>
-          <NavLink key={id} to={path} style={{textDecoration:"none"}}>
-            <ListMenu  title={title} path={path} icon={icon} />
-          </NavLink>
-          
-          </>
-
+            <NavLink key={id} to={path} style={{textDecoration:"none", color:"inherit"}}>
+              <ListMenu  title={title} path={path} icon={icon} />
+            </NavLink>       
         ))}
       </List>
       <Divider />
